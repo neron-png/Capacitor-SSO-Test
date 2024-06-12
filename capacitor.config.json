@@ -1,5 +1,14 @@
 {
   "appId": "gr.aristomate.app",
   "appName": "Aristomate",
-  "webDir": "build"
+  "webDir": "build",
+  "plugins": {
+			"CapacitorHttp": {
+			  "enabled": true
+			},
+			"CapacitorCookies": {
+				"enabled": true,
+				"androidCustomSchemeAllowInsecureAccess": true
+			}
+  }
 }

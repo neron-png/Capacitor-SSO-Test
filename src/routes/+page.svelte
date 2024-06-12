@@ -1,13 +1,33 @@
 <script>
+	import { Browser } from "@capacitor/browser";
+	import { navigating, page } from "$app/stores";
+	import { App, URLOpenListenerEvent } from '@capacitor/app';
+	import { goto } from '$app/navigation';
 
 	const authURL = 'https://idp.sso.tools/aristomate/oauth2/authorize';
 	const client_id = '8cd28957-0085-4407-8739-592e96987c70';
-	const redirect_uri = 'applink.aristomate.gr';
+	const redirect_uri = 'https://applink.aristomate.gr/authsuccess';
 	const response_type = 'code';
-	const scope = '';
+	const scope = 'profile email openid';
 
 	const URL = `${authURL}?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}&scope=${scope}`;
 	
+	function openCapBrowser(){
+		Browser.open({ url: URL });
+	}
+
+
+	App.addListener('appUrlOpen', function (event) {
+		// slug = /tabs/tabs2
+		const slug = event.url.split('.gr').pop();
+		console.log(event.url);
+
+		// We only push to the route if there is a slug present
+		if (slug) {
+			goto(slug);
+		}
+		});
+
 </script>
 
   <ion-card>
@@ -21,42 +41,17 @@
 		open in new window). Don't forget to open DevTools to see this app in mobile mode. Happy coding!!!
 	</ion-card-content>
 	<ion-item>
-		<ion-label>Try out the testing SSO!</ion-label>
-		<ion-button href={URL} target="_new" fill="outline" slot="end"
-			>View</ion-button
-		>
-	</ion-item>
-	<ion-item>
-		<ion-label>Visit Ionic Showcase app with sourceviewer</ion-label>
-		<ion-button href="https://ionicsvelte.firebaseapp.com/" target="_new" fill="outline" slot="end"
-			>View</ion-button
-		>
-	</ion-item>
-
-	<ion-item>
-		<ion-label>Visit Ionic component docs</ion-label>
-		<ion-button
-			href="https://ionicframework.com/docs/components"
-			target="_new"
-			fill="outline"
-			slot="end">View</ion-button
-		>
-	</ion-item>
-	<ion-item>
-		<ion-label>Visit Svelte Kit docs</ion-label>
-		<ion-button
-			href="https://kit.svelte.dev/docs/introduction"
-			target="_new"
-			fill="outline"
-			slot="end">View</ion-button
-		>
-	</ion-item>
-	<ion-item>
-		<ion-label>Visit Svelte docs</ion-label>
-		<ion-button href="https://svelte.dev/docs" target="_new" fill="outline" slot="end"
-			>View</ion-button
-		>
-	</ion-item>
+		<ion-label>SSO login</ion-label>
+		<ion-button href={URL} target="_new" fill="outline" slot="end">
+			Open system Browser
+		</ion-button>
+		</ion-item>
+		<ion-item>
+			<ion-label>SSO login</ion-label>
+			<ion-button on:click={openCapBrowser} aria-hidden>
+				Open in-app Browser
+			</ion-button>
+		</ion-item>
 </ion-card>
 
   
