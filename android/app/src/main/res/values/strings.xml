@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Aristomate</string>
+    <string name="title_activity_main">Aristomate</string>
+    <string name="package_name">gr.aristomate.app</string>
+    <string name="custom_url_scheme">gr.aristomate.app</string>
+</resources>
